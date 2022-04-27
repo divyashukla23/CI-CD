@@ -39,7 +39,7 @@ pipeline {
             steps {
                 sh '''
                     echo "deploying the application ........"
-                    kubectl delete services service || true
+                    kubectl delete todo-service service || true
                     kubectl apply -f deployment.yaml 
                     kubectl apply -f services.yaml 
                 '''
