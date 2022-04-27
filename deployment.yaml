@@ -16,4 +16,4 @@ spec:
       - name: todo
         image: divyashukla23/todo
         ports:
-        - containerPort: 83
+        - containerPort: 80

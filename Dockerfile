@@ -1,15 +1,16 @@
-FROM node:lts-alpine
-# set the working direction
-WORKDIR /app
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-# install app dependencies
-COPY package.json ./
-COPY yarn.lock ./
-# rebuild node-sass
-RUN yarn add node-sass
-RUN yarn
-# add app
-COPY . ./
-# start app
-CMD ["yarn", "start"]
+#================BUILD============================
+
+FROM node:16.13.2-alpine as build
+WORKDIR /usr/app
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install
+COPY . .
+ENTRYPOINT yarn build
+
+#================RUN==============================
+
+FROM nginx:1.12-alpine
+COPY --from=build /usr/app/build/ /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
