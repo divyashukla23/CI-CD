@@ -37,12 +37,14 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                withAWS(profile:'966185979698_Admin-Account-Access'){
                 sh '''
                     echo "deploying the application ........"
-                    kubectl delete loadbalancer service || true
+                    kubectl delete loadbalancer service|| true
                     kubectl apply -f deployment.yaml 
                     kubectl apply -f services.yaml 
                 '''
+            }
             }
         }
     }
