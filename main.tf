@@ -21,7 +21,7 @@ resource "aws_iam_role" "eks_cluster" {
 }
 POLICY
 }
-
+ 
 resource "aws_security_group" "g6-cluster" {
   name        = "g6-cluster"
   description = "Cluster communication with worker nodes"
